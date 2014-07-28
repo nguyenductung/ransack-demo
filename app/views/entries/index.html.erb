@@ -1,0 +1,30 @@
+<% provide(:title, 'All entries') %>
+<h1>All entries</h1>
+
+<%= render "search_form" %>
+
+<table class="table table-bordered">
+  <tr>
+    <th>ID</th>
+    <th>Author</th>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Written at</th>
+    <th>Comments</th>
+  </tr>
+  <% @entries.each do |entry| -%>
+  <tr>
+    <td><%= link_to entry.id, entry_path(entry) %></td>
+    <td>
+      <%= gravatar_for entry.user, size: 64 %>
+      <%= link_to entry.user.name, user_path(entry.user) %>
+    </td>
+    <td><%= link_to entry.title, entry_path(entry) %></td>
+    <td><%= entry.content.to(60)+"..." %></td>
+    <td><%= entry.created_at %></td>
+    <td><%= link_to entry.comments.count, entry_path(entry) %></td>
+  </tr>
+  <% end %>
+</table>
+
+<%= will_paginate %>

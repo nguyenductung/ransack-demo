@@ -1,0 +1,48 @@
+<%= search_form_for @q, method: :get, html: {id: "search-form", class: "search-form"} do |f| %>
+  <div class="row">
+    <div class="span3">
+      <%= f.label :id_str_cont, "ID" %>
+      <%= f.text_field :id_str_cont %>
+    </div>
+    <div class="span3">
+      <%= f.label :name_cont, "Name" %>
+      <%= f.text_field :name_cont %>
+    </div>
+    <div class="span3">
+      <%= f.label :email_cont, "Email" %>
+      <%= f.text_field :email_cont %>
+    </div>
+    <div class="span3">
+      <%= f.label :admin_eq, "Admin" %>
+      <%= f.collection_select :admin_eq, [true, false],
+        :to_s, :to_s, include_blank: true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span3">
+      <%= f.label :followers_id_eq, "Followed by" %>
+      <%= f.collection_select :followers_id_eq, User.all,
+        :id, :name, include_blank: true %>
+    </div>
+    <div class="span3">
+      <%= f.label :followed_users_id_eq, "Following" %>
+      <%= f.collection_select :followed_users_id_eq, User.all,
+        :id, :name, include_blank: true %>
+    </div>
+    <div class="span3">
+      <%= f.label :entries_id_eq, "Wrote entry" %>
+      <%= f.collection_select :entries_id_eq, Entry.all,
+        :id, :title, include_blank: true %>
+    </div>
+    <div class="span3">
+      <%= f.label :comments_entry_id_eq, "Commented on entry" %>
+      <%= f.collection_select :comments_entry_id_eq, Entry.all,
+        :id, :title, include_blank: true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12 text-center">
+      <%= f.submit "Search", class: %w(btn btn-primary) %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,48 @@
+<% if @with_avatar %>
+<li>
+  <div class="row">
+    <aside class="span1">
+      <%= link_to gravatar_for(entry.user, size: 52), entry.user %>
+    </aside>
+    <div class="span11">
+      <span class="title">
+        <a href=<%= entry_path(entry) %>><%= wrap(entry.title) %></a>
+      </span>
+      <span class="user">
+        <a href=<%= user_path(entry.user) %>><%= entry.user.name %></a>
+      </span>
+      <span class="content"><%= wrap(entry.content) %></span>
+      <span class="timestamp"><%= entry.created_at %>. 
+        <a href=<%= entry_path(entry) %>><%= pluralize(entry.comments.count, "comment") %></a>.
+      </span>
+      <% if current_user?(entry.user) %>
+         <%= link_to(edit_entry_path(entry)) do %>
+           <div class="btn btn-mini">Edit</div>
+         <% end %>                     
+         <%= link_to(entry, method: :delete, data: { confirm: "Are you sure?" }, title: entry.content) do %>
+           <div class="btn btn-mini">Delete</div>
+         <% end %>
+      <% end %>
+    </div>
+  </div>
+</li>
+<% else %>
+<li>
+  <span class="title">
+    <a href=<%= entry_path(entry) %>><%= wrap(entry.title) %></a>
+  </span>
+  <span class="content"><%= wrap(entry.content) %></span>
+  <span class="timestamp">
+    <%= entry.created_at %>.
+     <a href=<%= entry_path(entry) %>><%= pluralize(entry.comments.count, "comment") %></a>.
+  </span>
+  <% if current_user?(entry.user) %>    
+    <%= link_to(edit_entry_path(entry)) do %>
+      <div class="btn btn-mini">Edit</div>
+    <% end %>                     
+    <%= link_to(entry, method: :delete, data: { confirm: "Are you sure?" }, title: entry.content) do %>
+      <div class="btn btn-mini">Delete</div>
+    <% end %>
+  <% end %>
+</li>
+<% end %>

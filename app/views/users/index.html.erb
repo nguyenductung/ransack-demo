@@ -1,0 +1,33 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= render "search_form" %>
+
+<table class="table table-bordered">
+  <tr>
+    <th>User ID</th>
+    <th>Avatar</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Admin</th>
+    <th>Followers</th>
+    <th>Following</th>
+    <th>Entries</th>
+    <th>Comments</th>
+  </tr>
+  <% @users.each do |user| -%>
+  <tr>
+    <td><%= link_to user.id, user_path(user) %></td>
+    <td><%= gravatar_for user, size: 64 %></td>
+    <td><%= link_to user.name, user_path(user) %></td>
+    <td><%= user.email %></td>
+    <td><%= user.admin %></td>
+    <td><%= link_to user.followers.count, followers_user_path(user) %></td>
+    <td><%= link_to user.followed_users.count, following_user_path(user) %></td>
+    <td><%= link_to user.entries.count, user_path(user) %></td>
+    <td><%= link_to user.comments.count, user_path(user) %></td>
+  </tr>
+  <% end %>
+</table>
+
+<%= will_paginate %>

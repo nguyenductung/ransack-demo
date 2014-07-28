@@ -1,0 +1,37 @@
+<%= search_form_for @q, method: :get, html: {id: "search-form", class: "search-form"} do |f| %>
+  <div class="row">
+    <div class="span3">
+      <%= f.label :id_str_cont, "ID" %>
+      <%= f.text_field :id_str_cont %>
+    </div>
+    <div class="span3">
+      <%= f.label :user_id_eq, "Author" %>
+      <%= f.collection_select :user_id_eq, User.all,
+        :id, :name, include_blank: true %>
+    </div>
+    <div class="span3">
+      <%= f.label :title_cont, "Title" %>
+      <%= f.text_field :title_cont %>
+    </div>
+    <div class="span3">
+      <%= f.label :content_cont, "Content" %>
+      <%= f.text_field :content_cont %>
+    </div>
+  </div>
+  <div class="row">
+     <div class="span3 offset3">
+      <%= f.label :written_date_eq, "Written date" %>
+      <%= f.date_field :written_date_eq %>
+    </div>
+    <div class="span3">
+      <%= f.label :comments_user_id_eq, "Commented by" %>
+      <%= f.collection_select :comments_user_id_eq, User.all,
+        :id, :name, include_blank: true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12 text-center">
+      <%= f.submit "Search", class: %w(btn btn-primary) %>
+    </div>
+  </div>
+<% end %>

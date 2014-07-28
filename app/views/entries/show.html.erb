@@ -1,0 +1,45 @@
+<% provide(:title, @entry.title) %>
+<div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info', user: @user %>
+      </section>
+      <section>
+        <%= render 'shared/stats', user: @user %>
+      </section>
+      <section>
+        <!--render 'shared/recent_entries', user: @user -->
+      </section>
+    </aside>
+    <div class="span8">
+      <span class="title">
+        <a href=<%= entry_path(@entry) %>><%= wrap(@entry.title) %></a>
+      </span>
+      <br/>
+      <span class="content"><%= wrap(@entry.content) %></span>
+      <span class="timestamp"><%= @entry.created_at %>. <%= pluralize(@entry.comments.count, "comment") %>.</span>
+      <% if current_user?(@user) %>    
+        <%= link_to(edit_entry_path(@entry)) do %>
+           <div class="btn btn-mini">Edit</div>
+         <% end %>                    
+        <%= link_to(@entry, method: :delete, data: { confirm: "Are you sure?" }, title: @entry.content) do %>
+          <div class="btn btn-mini">Delete</div>
+        <% end %>
+      <% end %>
+      
+      <% if signed_in? %>
+        <% if current_user?(@user) || current_user.following?(@user) %>
+      	  <ol class="comment-form">
+            <%= render 'shared/comment_form' %>
+          </ol>
+        <% end %>
+      <% end %>
+      
+      <% if @entry.comments.any? %>
+        <ol class="comments">
+          <%= render @comments %>
+        </ol>
+        <%= will_paginate @comments %>
+      <% end %>  
+    </div>
+</div>

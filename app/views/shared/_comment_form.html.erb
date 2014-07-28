@@ -1,0 +1,21 @@
+<li>
+  <div class="row">
+    <aside class="span1">
+      <%= link_to gravatar_for(current_user, size: 52), current_user %>
+    </aside>
+    <div class="span7">
+      <span class="user">
+        <a href=<%= user_path(current_user) %>><%= current_user.name %></a>
+      </span>
+      <%= form_for(@comment) do |f| %>
+  	    <%= render 'shared/error_messages', object: f.object %>
+        <div class="field">
+          <%= f.text_area :content, placeholder: "New comment...", rows: 3 %>
+        </div>
+        <div><%= f.hidden_field :user_id, value: current_user.id %></div>
+        <div><%= f.hidden_field :entry_id, value: @entry.id %></div>
+        <%= f.submit "Post", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</li>

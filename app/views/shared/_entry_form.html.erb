@@ -1,0 +1,10 @@
+<%= form_for(@entry) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :title, placeholder: "Title", rows: 1%>
+  </div>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "New entry...", rows: 5 %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>
